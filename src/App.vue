@@ -6,28 +6,7 @@
 
 <template>
   <div>
-    <div id="page">
-      <div class="main">
-        <!-- Slots -->
-        <div class="numbers">
-          <div class="slots" id="slots_tens">
-            <div class="number-wrapper"></div>
-          </div>
-          <div class="slots" id="slots_units">
-            <div class="number-wrapper"></div>
-          </div>
-          <div class="slots" id="slots_queue">
-            <div class="number-wrapper"></div>
-          </div>
-        </div>
-      </div>
-      <div class="button">
-        <!--<input type="button" value="spin!" onClick="go(Math.floor(Math.random() * 10),Math.floor(Math.random() * 10));">-->
-        <div id="equation" class="done">
-          <div id="shoulder"><div id="arm"></div></div>
-        </div>
-      </div>
-    </div>
+    
   </div>
 </template>
 
