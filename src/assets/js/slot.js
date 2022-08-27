@@ -3,7 +3,7 @@
 *	jQuery Slot Machine
 *
 */
-var height_slot_number = '100';
+var height_slot_number = '200';
 
 function go(tens,units){
 	addSlots($("#slots_units .number-wrapper"));
