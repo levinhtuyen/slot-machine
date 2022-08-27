@@ -71,7 +71,7 @@ function moveSlots (jqo, num) {
 	time		+= Math.round(Math.random()*1000);
 	jqo.stop(true,true);
 
-	var margin_top  = number*100
+	var margin_top  = number*100 + 5
   console.log('margin_top :>> ', margin_top);
 	jqo.animate(
 		{"margin-top":"-"+ margin_top +"px"},
