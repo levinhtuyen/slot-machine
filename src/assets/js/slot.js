@@ -26,7 +26,7 @@ $(document).ready(function(){
       delay = setTimeout(function() { arm.removeClass('clicked');}, 200);
       e.preventDefault();
       // set gift 
-      go(12,12,12);
+      go(12,10,8);
 	});
 });
 
@@ -65,14 +65,12 @@ function addSlots (jqo) {
 }
 
 function moveSlots (jqo, num) {
-  console.log('num :>> ', num);
 	var time	= 6500;
 	var number	= num;
 	time		+= Math.round(Math.random()*1000);
 	jqo.stop(true,true);
 
 	var margin_top  = number*100 + 5
-  console.log('margin_top :>> ', margin_top);
 	jqo.animate(
 		{"margin-top":"-"+ margin_top +"px"},
 		{'duration' : time, 'easing' : "easeOutElastic"}
