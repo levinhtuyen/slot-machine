@@ -4,23 +4,46 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300' rel='stylesheet' type='text/css' />    
-    <link href='./src/style.css' rel='stylesheet' type='text/css' />    
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="SLot machine" />
+    <meta property="og:image" content="" />
+    <meta property="og:url" content="" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="./src/style.css" rel="stylesheet" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <title>SLot machine</title>
+    <style>
+      * {
+      font-size: 100%;
+      font-family: Open Sans !important;
+      font-style: normal;
+      }
+      .set-background-image {
+        background-image: url('./src/assets/images/back_mobile.png');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        height: 100%;
+        background-size: cover;
+      }
+    </style>
   </head>
-  <body>
+  <body id="myModal" class="set-background-image" >
     <div id="app">
       <div class="main">
         <!-- Slots -->
         <div class="numbers">
-          <div class="slots" style="border: 1px solid #ccc;" id="slots_tens">
+          <div class="slots" style="border: 1px solid #ccc" id="slots_tens">
             <div class="number-wrapper"></div>
           </div>
-          <div class="slots" style="border: 1px solid #ccc;" id="slots_units">
+          <div class="slots" style="border: 1px solid #ccc" id="slots_units">
             <div class="number-wrapper"></div>
           </div>
-          <div class="slots" style="border: 1px solid #ccc;" id="slots_queue">
+          <div class="slots" style="border: 1px solid #ccc" id="slots_queue">
             <div class="number-wrapper"></div>
           </div>
         </div>
@@ -34,11 +57,270 @@
         </div>
       </div>
     </div>
-
   </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="./src/assets/js/slot.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+    integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"
     integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script>
+    const header = parseQueryString();
+    const headerFormDataGet = {
+      Authorization: header?.Token,
+      'Device-Encode': header?.DeviceEncode,
+      'Secret-Code': header?.SecretCode,
+    };
+    axios.defaults.headers = headerFormDataGet;
+    function parseQueryString() {
+      let query = window.location.search;
+      if (!query) {
+        return;
+      }
+      var urlparts = query.split('?');
+      var vars = urlparts[1]?.split('&');
+      var params = {};
+
+      for (var i = 0; i < vars?.length; i++) {
+        var pair = vars[i].split('=');
+        var key = decodeURIComponent(pair.shift());
+        var value = decodeURIComponent(pair.join('='));
+        // If first entry with this name
+        if (typeof params[key] === ' undefined') {
+          params[key] = value; // If second entry with this name
+        } else if (typeof params[key] === 'string') {
+          var arr = [params[key], value];
+          params[key] = arr; // If third or later entry with this name
+        } else {
+          params[key].push(value);
+        }
+      }
+      return params;
+    }
+    async function getDataFromApi() {
+      var result = await axios
+      .get(
+      'https://production-api.go2joy.vn/api/v3/mobile/reward/getPromotionLuckyWheel',
+      { name: 'data' }
+      )
+      .then(function (response) {
+      let resultData = {
+        data: [
+          {
+            src: 'https://staging-s3.go2joy.vn/350w/luckywheel/171_1660547786_62f9f2cac4f9c.png',
+            sn: 1,
+            text: '11k',
+          },
+          {
+            src: 'https://staging-s3.go2joy.vn/350w/luckywheel/171_1660547834_62f9f2fa3da7f.png',
+            sn: 2,
+            text: '33k',
+          },
+          {
+            src: 'https://staging-s3.go2joy.vn/350w/luckywheel/171_1660547875_62f9f3232bf9e.png',
+            sn: 3,
+            text: '44k',
+          },
+          {
+            src: 'https://staging-s3.go2joy.vn/350w/luckywheel/171_1660547909_62f9f345c66c7.png',
+            sn: 4,
+            text: '55k',
+          },
+          {
+            src: 'https://staging-s3.go2joy.vn/350w/luckywheel/171_1660548020_62f9f3b40b8e2.png',
+            sn: 5,
+            text: '111k',
+          },
+          {
+            src: 'https://staging-s3.go2joy.vn/350w/luckywheel/171_1660548055_62f9f3d786855.png',
+            sn: 6,
+            text: 'Chúc bạn may mắn lần sau',
+          },
+        ],
+        error: [
+          {
+            code : 1
+          }
+        ],
+        numberOfTurns: 1
+      }
+      if (resultData.error && resultData.error[0].code === -1) {
+        document.getElementById('myModal').innerHTML += `<div class="modal" id="myModal-down-app">
+          <div class="g2j-basic-modal g2j-direct-app-notice-modal">
+            <div class="g2j-basic-modal__bg modal-bg"> </div>
+            <div class="g2j-basic-modal__section modal-section">
+              <div class="g2j-basic-modal__section__head section-head">
+                <div class="g2j-basic-modal__section__head__title head-title"> </div>
+                <div class="g2j-basic-modal__section__head__close-btn close">
+                  <span class="close " data-dismiss="modal">
+                  </span>
+                </div>
+              </div>
+              <div class="g2j-basic-modal__section__body section-body scroll-bar-custom">
+                <h2 class="g2j-direct-app-notice-modal__content--title" style="padding-bottom:24px">Phiên làm việc của
+                  bạn đã hết.<br> Vui lòng đăng nhập lại</h2>
+                <div class="g2j-direct-app-notice-modal__container-group">
+                  <div class="g2j-direct-app-notice-modal__btn-group">
+                    <div class="detail-btn"><a href="/back">Trở lại</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      } else {
+        return resultData
+      }
+      return resultData
+      });
+      if (result.numberOfTurns === 0) {
+        console.log('hết lượt quay');
+        document.getElementById('myModal').innerHTML += `<div class="modal" id="myModal-down-app">
+          <div class="g2j-basic-modal g2j-direct-app-notice-modal">
+            <div class="g2j-basic-modal__bg modal-bg"> </div>
+            <div class="g2j-basic-modal__section modal-section">
+              <div class="g2j-basic-modal__section__head section-head">
+                <div class="g2j-basic-modal__section__head__title head-title"> </div>
+                <div class="g2j-basic-modal__section__head__close-btn close">
+                  <span class="close " data-dismiss="modal">
+                  </span>
+                </div>
+              </div>
+              <div class="g2j-basic-modal__section__body section-body scroll-bar-custom">
+                <h2 class="g2j-direct-app-notice-modal__content--title" style="padding-bottom:24px">Bạn đã hết lượt quay
+                  hôm nay. Vui lòng thử lại vào ngày mai</h2>
+                <div class="g2j-direct-app-notice-modal__container-group">
+                  <div class="g2j-direct-app-notice-modal__btn-group">
+                    <div class="detail-btn"><a href="/back">Trở lại</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      } else {
+      // const hcLuckywheel = document.querySelector('.hc-luckywheel');
+      // setTimeout((hcLuckywheel.style.display = 'block'), 1000);
+      return result
+      }
+      return result;
+    }
+    /*
+     *
+     * jQuery Slot Machine
+     *
+     */
+    var height_slot_number = '100';
+    
+    // Render html and get data to view
+    async function addSlots(jqo) {
+    let dataResp = await getDataFromApi()
+    for (var i = 0; i <= 5; i++) { jqo.append(`<div class='slot' style="height: 100px !important;"><img
+        src="${dataResp.data[i].src}" class="el-image__inner" style="object-fit: scale-down;"></div>`);
+      }
+    }
+    
+    // Add slot HTML View
+    function go(one, two, thre) {
+      addSlots($('#slots_units .number-wrapper'));
+      moveSlots($('#slots_units .number-wrapper'), one);
+      addSlots($('#slots_units .number-wrapper'));
+      addSlots($('#slots_tens .number-wrapper'));
+      moveSlots($('#slots_tens .number-wrapper'), two);
+      addSlots($('#slots_tens .number-wrapper'));
+      addSlots($('#slots_queue .number-wrapper'));
+      moveSlots($('#slots_queue .number-wrapper'), thre);
+      addSlots($('#slots_queue .number-wrapper'));
+    }
+    
+    // get API return resuilt
+    async function getResuiltGift(dataResp){
+      let gift = await axios.get("https://production-api.go2joy.vn/api/v3/mobile/reward/randomPromotionLuckyWheel",{name:
+      "data"})
+      .then(function (response) {
+        return response.data.data
+      })
+      let data = dataResp.data
+      var index = dataResp.data.findIndex(item => item.sn === 6);
+      var sn = 6
+      console.log('sn :>> ', sn);
+      console.log('index :>> ', index);
+      return index
+    };
+    
+    // move Slots
+    function moveSlots(jqo, num) {
+      var time = 6500;
+      var number = num;
+      time += Math.round(Math.random() * 1000);
+      jqo.stop(true, true);
+
+      var margin_top = number * 100 + 5;
+      jqo.animate(
+        { 'margin-top': '-' + margin_top + 'px' },
+        { duration: time, easing: 'easeOutElastic' }
+      );
+    }
+
+    // Func ramdom
+    function randomIntFromInterval(min, max) { // min and max included
+      return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+
+    // Play
+    $(document).ready(function () {
+      addSlots($('#slots_units .number-wrapper'));
+      addSlots($('#slots_tens .number-wrapper'));
+      addSlots($('#slots_queue .number-wrapper'));
+      $('#arm').click(async function (e) {
+        var arm = $(this).addClass('clicked');
+        delay = setTimeout(function () {
+          arm.removeClass('clicked');
+        }, 200);
+        e.preventDefault();
+        // set gift
+        let dataResp = await getDataFromApi()
+        const resuilt = await getResuiltGift(dataResp)
+        if(resuilt !== 5) {
+          go(resuilt, resuilt, resuilt);
+        } else {
+          const two = randomIntFromInterval(7, 11)
+          const three = randomIntFromInterval(14, 17)
+          const one = 6
+          console.log('one, two, three :>> ', one, two, three);
+          go(one, two, three);
+          setTimeout(() => {
+            renderModal(dataResp.data[5].text)
+          }, 7000);
+        }
+        
+      });
+    });
+    function renderModal(text) {
+      document.getElementById("myModal").innerHTML += `<div class="modal" id="myModal-down-app">
+        <div class="g2j-basic-modal g2j-direct-app-notice-modal">
+          <div class="g2j-basic-modal__bg modal-bg"> </div>
+          <div class="g2j-basic-modal__section modal-section">
+            <div class="g2j-basic-modal__section__head section-head">
+              <div class="g2j-basic-modal__section__head__title head-title"> </div>
+            </div>
+            <div class="g2j-basic-modal__section__body section-body scroll-bar-custom">
+              <h2 class="g2j-direct-app-notice-modal__content--title" style="padding-bottom:35px">${text}
+              </h2>
+              <div class="g2j-direct-app-notice-modal__btn-group">
+                <div class="detail-btn"><a href="/back">Trở lại</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>`;
+    }
+  </script>
 </html>
